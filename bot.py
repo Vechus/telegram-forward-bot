@@ -26,7 +26,7 @@ if not os.path.isfile('allowed.json'):
 chats = {}
 allowed = []
 TOKEN = ""
-PASSWORD = "changeme"
+PASSWORD = ""
 
 with open('chats.json', 'r') as f:
     chats = json.load(f)
@@ -135,9 +135,12 @@ def handle(msg):
                         if tag in chats:
                             if chats[tag]['id'] != chat_id:
                                 approved.append(chats[tag]['name'])
-                                bot.forwardMessage(chats[tag]['id'], chat_id, msg['message_id'])
+                                #bot.forwardMessage(chats[tag]['id'], chat_id, msg['message_id'])
+                                bot.sendMessage(chats[tag]['id'], txt)
                                 if 'reply_to_message' in msg:
-                                    bot.forwardMessage(chats[tag]['id'], chat_id, msg['reply_to_message']['message_id'])
+                                    #bot.forwardMessage(chats[tag]['id'], chat_id, msg['reply_to_message']['message_id'])
+                                	bot.sendMessage(chats[tag]['id'], txt)
+
                         else:
                             rejected.append(tag)
                     if len(rejected) > 0:
